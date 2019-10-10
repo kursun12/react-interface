@@ -17,6 +17,7 @@ class App extends Component {
     };
     this.deleteAppointmentMethod = this.deleteAppointmentMethod.bind(this);
     this.toggleFormMethod = this.toggleFormMethod.bind(this);
+    this.addAppointment = this.addAppointment.bind(this);
 
   }
 
@@ -24,6 +25,16 @@ class App extends Component {
     this.setState({
       formDisplayBool: !this.state.formDisplayBool
     });
+  }
+
+  addAppointment(apt) {
+    let tempApts = this.state.myAppointments;
+    apt.aptId = this.state.lastIndex;
+    tempApts.unshift(apt);
+    this.setState({
+      myAppointments: tempApts,
+      lastIndex: this.state.lastIndex + 1
+    })
   }
 
   deleteAppointmentMethod(apt) {
@@ -62,6 +73,7 @@ class App extends Component {
                 <AddAppointments
                   formDisplay ={this.state.formDisplayBool}
                   toggleForm={this.toggleFormMethod}
+                  addAppointment = {this.addAppointment}
                 />
                 <SearchAppointments />
                 <ListAppointments 
